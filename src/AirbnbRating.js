@@ -12,7 +12,8 @@ export default class AirbnbRating extends Component {
     reviews: ["Terrible", "Bad", "Okay", "Good", "Great"],
     count: 5,
     onFinishRating: () => console.log('Rating selected. Attach a function here.'),
-    showRating: true
+    showRating: true,
+    value: 0
   };
 
   constructor() {
@@ -25,8 +26,13 @@ export default class AirbnbRating extends Component {
 
   componentDidMount() {
     const { defaultRating } = this.props
-
     this.setState({ position: defaultRating })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.value !== this.props.value) {
+      this.setState({position: nextProps.value});
+    }
   }
 
   renderStars(rating_array) {
